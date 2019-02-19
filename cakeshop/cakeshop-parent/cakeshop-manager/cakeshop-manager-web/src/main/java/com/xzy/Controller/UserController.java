@@ -1,8 +1,10 @@
 package com.xzy.Controller;
 
+import com.google.gson.Gson;
 import com.xzy.FTPUtil;
 import com.xzy.IDUtils;
 import com.xzy.service.UserService;
+import org.apache.ibatis.annotations.Param;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,24 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.xzy.pojo.Users;
 import com.xzy.service.GuestService;
-import com.xzy.service.UserService;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
 
 
-
-
-
-    @Controller
+@Controller
     public class UserController {
 
         @Autowired
@@ -45,6 +39,8 @@ import java.util.Date;
         public String tologin(){
             return "login";
         }
+        @RequestMapping("/todisplay.htm")
+        public String dtodisplay(){return "display";}
 
 
 
@@ -138,10 +134,13 @@ import java.util.Date;
 	//展示
     @RequestMapping("/display")
     @ResponseBody
-    public Users display(HttpSession session){
-        Object id = session.getAttribute("id");
-        Users u = userService.display(Long.valueOf(String.valueOf(id)));
-        return u;
+    public Users display(HttpSession session,@Param("id") Long id){
+        //Object id = session.getAttribute("id");
+        //Users u = userService.display(Long.valueOf(String.valueOf(id)));
+        String ss = new Gson().toJson(userService.display(id));
+        System.out.println("------------------------------------------------------->");
+        System.out.println(ss);
+        return userService.display(id);
     }
 
 

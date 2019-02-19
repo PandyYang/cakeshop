@@ -8,7 +8,7 @@
 </head>
 <body>
 <center>
- <h1>用户</h1>
+ <h1>用户登录</h1>
  <form action="login.htm" method="post">
      用户名:<input type="text" name="username"/><br/>
      密码：<input type="password" name="password"/><br/>

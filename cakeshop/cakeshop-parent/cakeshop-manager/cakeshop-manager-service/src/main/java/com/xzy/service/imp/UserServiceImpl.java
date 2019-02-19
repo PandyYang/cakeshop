@@ -1,5 +1,6 @@
 package com.xzy.service.imp;
 
+import com.xzy.DesensitizeUtil;
 import com.xzy.mapper.UsersMapper;
 import com.xzy.pojo.Users;
 import com.xzy.service.UserService;
@@ -47,7 +48,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Users display(Long id) {
-        return usersMapper.display(id);
+        Users u = usersMapper.display(id);
+        DesensitizeUtil d = new DesensitizeUtil();
+        u.setUsername(d.nameTool(u.getUsername(),1));
+        u.setTelephone(d.telephoneTool(u.getTelephone(),3,4));
+        u.setEmail(d.emailTool(u.getEmail(),4,6));
+        return u;
     }
 
     @Override

@@ -40,6 +40,7 @@
 
     <update id="edit" parameterType="com.xzy.pojo.Users">
         update users set username = #{username},password = #{password}, sex = #{sex},
-        age = #{age},signd = #{signd}, photo = #{photo},telephone = #{telephone},email = #{email}
+        age = #{age},signd = #{signd}, photo = #{photo},telephone = #{telephone},
+        email = #{email} where username = #{username}
     </update>
 </mapper>
